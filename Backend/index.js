@@ -32,7 +32,7 @@ const main = async() => {
   try {
       await connectDB(process.env.MONGO_URL)
       app.listen(5000, () => {
-        console.log("listen on 8000.");
+        console.log("listen on 5000.");
       });
   } catch (error) {
     console.log(error)

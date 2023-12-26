@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import { Context } from "../../context/Context";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGIN_FAILURE, LOGIN_START, LOGIN_SUCCESS } from "../../features/user/userSlice";
+import { LOGIN_FAILURE, LOGIN_START, LOGIN_SUCCESS, loadUserData } from "../../features/user/userSlice";
 
 export default function Login() {
   const userRef = useRef();
@@ -27,6 +27,7 @@ export default function Login() {
       console.log(res.data)
       // dispatch({type:"LOGIN_SUCCESS",payload:res.data});
       dispatchh(LOGIN_SUCCESS(res.data))
+      dispatchh(loadUserData())
     } catch (err) {
       // dispatch({type:"LOGIN_FAILURE"});
       dispatchh(LOGIN_FAILURE())

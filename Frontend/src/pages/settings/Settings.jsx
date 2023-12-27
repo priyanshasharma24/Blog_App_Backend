@@ -3,7 +3,7 @@ import SideBar from "../../components/sidebar/SideBar";
 import {useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT, UPDATE_FAILURE, UPDATE_START, UPDATE_SUCCESS } from "../../features/user/userSlice";
+import { LOGOUT, UPDATE_FAILURE, UPDATE_START, UPDATE_SUCCESS, loadUserData } from "../../features/user/userSlice";
 
 export default function Settings() {
   const [file, setFile] = useState(null);
@@ -31,7 +31,7 @@ export default function Settings() {
       if (file) {
         updatedUser.image = file;
         const res = await axios.patch(
-          "https://blog-backend-kw8i.onrender.com/api/users/" + userData._id,
+          "http://localhost:5000/api/users/" + userData._id,
           updatedUser,
           {
             headers: {
@@ -43,10 +43,11 @@ export default function Settings() {
         setFile(null);
         setError(false)
         dispatch(UPDATE_SUCCESS(res.data))
-
+        dispatch(loadUserData())
+        
       } else {
         const res = await axios.patch(
-          "https://blog-backend-kw8i.onrender.com/api/users/" + userData._id,
+          "http://localhost:5000/api/users/" + userData._id,
           updatedUser
           );
           setSuccess(true);
@@ -54,6 +55,7 @@ export default function Settings() {
           setError(false)
           // dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
           dispatch(UPDATE_SUCCESS(res.data))
+          dispatch(loadUserData())
           
       }
     } catch (err) {
@@ -64,7 +66,7 @@ export default function Settings() {
   };
   const handleDelete = async() =>{
     try {
-      await axios.delete("https://blog-backend-kw8i.onrender.com/api/users/"+userData._id)
+      await axios.delete("http://localhost:5000/api/users/"+userData._id)
       dispatch(LOGOUT())
       window.location.replace("/register");
     } catch (error) {

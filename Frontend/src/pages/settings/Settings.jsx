@@ -31,7 +31,7 @@ export default function Settings() {
       if (file) {
         updatedUser.image = file;
         const res = await axios.patch(
-          "http://localhost:5000/api/users/" + userData._id,
+          "https://blog-backend-kw8i.onrender.com/api/users/" + userData._id,
           updatedUser,
           {
             headers: {
@@ -47,7 +47,7 @@ export default function Settings() {
         
       } else {
         const res = await axios.patch(
-          "http://localhost:5000/api/users/" + userData._id,
+          "https://blog-backend-kw8i.onrender.com/api/users/" + userData._id,
           updatedUser
           );
           setSuccess(true);
@@ -66,7 +66,7 @@ export default function Settings() {
   };
   const handleDelete = async() =>{
     try {
-      await axios.delete("http://localhost:5000/api/users/"+userData._id)
+      await axios.delete("https://blog-backend-kw8i.onrender.com/api/users/"+userData._id)
       dispatch(LOGOUT())
       window.location.replace("/register");
     } catch (error) {
